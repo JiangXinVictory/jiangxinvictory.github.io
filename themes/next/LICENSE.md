@@ -2,9 +2,6 @@
 
 <p align="center">Copyright © 2017 «<a href="https://github.com/theme-next/hexo-theme-next">NexT</a>».</p>
 
-<p align="center">Detail attribution information for «NexT»<br>
-              is contained in the '<a href="docs/AUTHORS.md">docs/AUTHORS.md</a>' file.</p>
-
   This program is free software; you can redistribute it and/or modify
 it under the terms of the [GNU Affero General Public License version 3][AGPL3]
 as published by the Free Software Foundation with the addition of the
@@ -57,7 +54,6 @@ address: support@theme-next.org
 
 <p align="center">This license also available in <a href="docs/LICENSE.txt">text format</a>.</p>
 
-[AUTHORS]: docs/AUTHORS.md
 [AGPL3]: docs/AGPL3.md
 [AGPL3-7]: docs/AGPL3.md/#7-additional-terms
 [AGPL3-15]: docs/AGPL3.md/#15-disclaimer-of-warranty
