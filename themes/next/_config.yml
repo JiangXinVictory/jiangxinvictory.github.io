@@ -93,7 +93,7 @@ creative_commons:
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
   enable: true
-  permalink: https://github.com/jiangxin19930425
+  permalink: https://github.com/JiangXinVictory
   title: Follow me on GitHub
 
 
@@ -193,7 +193,7 @@ site_state: true
 # Value before `||` delimiter is the target permalink.
 # Value after `||` delimiter is the name of Font Awesome icon. If icon (with or without delimiter) is not specified, globe icon will be loaded.
 social:
-  GitHub: https://github.com/jiangxin19930425 || github
+  GitHub: https://github.com/JiangXinVictory || github
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   gitee: https://gitee.com/jx390487853 || github-alt
