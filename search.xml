@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>CSS3中实现块级标签width以内容为主的尺寸计算方式</title>
+    <url>/CSS3%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%9D%97%E7%BA%A7%E6%A0%87%E7%AD%BEwidth%E4%BB%A5%E5%86%85%E5%AE%B9%E4%B8%BA%E4%B8%BB%E7%9A%84%E5%B0%BA%E5%AF%B8%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">width: fit-content;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>从字体文件中提取指定文字生成新的字体文件</title>
+    <url>/Extracting-fonts/</url>
+    <content><![CDATA[<blockquote>
+<p>曾经遇到一个可怕的设计，项目需求要为首页加一个加载进度条，并且在下边显示加载进度，然后甩给我一个8.6MB大小的字体包，告诉目瞪口呆的我，用来展示百分比。在劝说无果的情况下，我宿便给他加上了，结果就是资源都加载完毕了，字体文件还没加载完成，导致加载进度不显示。在成功的劝退后，我想到了加载进度只用到了0-9以及一个%，那么能否将他们提取出来呢？答案是可以的！这样将会大大减少字体包的体积。并且让UI对我感恩戴德，哈哈哈！</p>
+</blockquote>
+<a id="more"></a>
+
+
+<h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><ol>
+<li><p>Java 环境，以 MacOS 为例，输入以下命令查看当前 Java 版本：</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version // 如未安装 Jave 环境，点击系统弹窗的 更多信息... 按钮，下载 Java SE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在桌面新建文件夹，此处以 font 为例。</p>
+</li>
+<li><p>下载 <a href="/Extracting-fonts/sfnttool.jar">sfnttool.jar</a>，放入 font 文件夹。</p>
+</li>
+<li><p>将需要提取的 .ttf 格式的字体文件，放入 font 文件夹内。</p>
+</li>
+<li><p>运行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar sfnttool.jar -s &apos;字体提取&apos; font.ttf _font.ttf</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<img src="/Extracting-fonts/create.png">
+
+<p>参数说明：</p>
+<ol>
+<li>单引号内为需要提取的文字</li>
+<li>font.ttf 为原字体文件</li>
+<li>_font.ttf 为提取后的字体文件</li>
+</ol>
+<p>如提取文字较多，可以将 ‘’ 内的文字，放入以 .txt 后缀结尾的文本文档中，将 ‘’ 替换为 ***.txt</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol>
+<li>代码如下：<img src="/Extracting-fonts/code.png"></li>
+<li>浏览器下的展示效果：<img src="/Extracting-fonts/style.png"></li>
+<li>我们可以看到，我提取的文字为 字体提取 四个字，我代码展示的为 字体测试 四个字，测试 二字并不在字体中，所以没有字体样式。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Other</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS安装PHP环境</title>
+    <url>/CentOS%E5%AE%89%E8%A3%85PHP%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<p>CentOS 安装 Apache 服务器 &amp; PHP 环境。</p>
+<a id="more"></a>
+
+<p>1.安装Apache服务器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum -y install httpd</span><br></pre></td></tr></table></figure>
+
+<p>2.启动Apache服务器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ systemctl start httpd.service</span><br></pre></td></tr></table></figure>
+
+<p>3.设置Apache开机启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ systemctl enable httpd.service</span><br><span class="line">$ chkconfig --level 2345 httpd on</span><br></pre></td></tr></table></figure>
+
+<p>4.安装PHP</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum -y install php</span><br></pre></td></tr></table></figure>
+
+<p>5.改配置文件。顺利的话，可以访问了<br>6.安装数据库。因为centos7默认会安装mysql的其他分支数据库，不会安装mysql，所以我们需要这样操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"></span><br><span class="line">$ yum repolist enabled | grep &quot;mysql.*-community.*&quot;</span><br><span class="line"></span><br><span class="line">$ yum -y install mysql-community-server</span><br><span class="line"></span><br><span class="line">// 开机启动mysql</span><br><span class="line">$ systemctl enable mysqld</span><br><span class="line">$ chkconfig --level 2345 mysqld on</span><br><span class="line"></span><br><span class="line">// 启动mysql</span><br><span class="line">$ systemctl start mysqld</span><br><span class="line"></span><br><span class="line">// 设置密码,需要先按下回车，因为是空密码</span><br><span class="line">$ mysql_secure_installation</span><br><span class="line"></span><br><span class="line">// 设置root访问数据库</span><br><span class="line">$ GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;jiangxin&apos; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">$ FLUSH   PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>linux</tag>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac终端中使用sublime打开文件</title>
+    <url>/Mac%E7%BB%88%E7%AB%AF%E4%B8%AD%E4%BD%BF%E7%94%A8sublime%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>Mac OS 自带终端，怎么使用sublime打开文件？</p>
+<a id="more"></a>
+
+<p>####一、open命令<br>1.open命令可以在shell内打开文件，可以通过 -a 选项来指定使用哪个应用来打开</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ open -a /Applications/Sublime\ Text.app .zsh_history</span><br></pre></td></tr></table></figure>
+
+<p>2.将下面的命令写入到 .bash_profile 文件中，并执行 source 命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sublime=&apos;open -a /Applications/Sublime\ Text.app&apos;</span><br><span class="line">$ sublime .zsh_history</span><br></pre></td></tr></table></figure>
+
+<p>3.上面的语句如果直接运行，只会在当前 shell 会话内有效<br>4.真正的快捷方式来啦<del>~</del></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl</span><br><span class="line">// 如果之前有设置过但未生效，可以先移除再执行上面的语句！</span><br><span class="line">$ sudo rm /usr/local/bin/subl</span><br><span class="line">// 使用方法：</span><br><span class="line">$ subl .bash_profile</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>sublime</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XHR</title>
+    <url>/XHR/</url>
+    <content><![CDATA[<p>将 XMLHttpRequest 进行简易封装，处理一些简单的 GET POST 请求。</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function ajax (type, url, data = &#123;&#125;) &#123;</span><br><span class="line">    // 处理post参数</span><br><span class="line">    var arr = [];</span><br><span class="line">    for (var i in data) &#123;</span><br><span class="line">        arr.push(i + &apos;=&apos; + data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    var dataStr = arr.join(&apos;&amp;&apos;);</span><br><span class="line">    var request = new XMLHttpRequest();</span><br><span class="line">    return new Promise(function (resolve, reject) &#123;</span><br><span class="line">        request.onreadystatechange = function () &#123;</span><br><span class="line">            if (request.readyState === 4) &#123;</span><br><span class="line">                if (request.status === 200) &#123;</span><br><span class="line">                    resolve(request.responseText);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    reject(request.status);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        request.open(type, url, true);</span><br><span class="line">        request.setRequestHeader(&quot;custom&quot;, JSON.stringify(header));</span><br><span class="line">        request.setRequestHeader(&quot;Authorization&quot;, Authorization);</span><br><span class="line">        request.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded;&quot;);</span><br><span class="line">        request.send(dataStr);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>canvas绘制文字并实现文字换行效果</title>
+    <url>/canvas%E7%BB%98%E5%88%B6%E6%96%87%E5%AD%97%E5%B9%B6%E5%AE%9E%E7%8E%B0%E6%96%87%E5%AD%97%E6%8D%A2%E8%A1%8C%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<p>canvas生成分享海报，实现分享文字超长时换行效果，时间紧迫先实现代码，后续补充</p>
+<a id="more"></a>
+
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>一、需要注意使用 drawImage 方法时的参数，sx, sy 在绘制完整图片时，应该为0，不要与 x, y 搞混！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 绘制文字，画板，背景图（根据需求是否需要该参数）</span><br><span class="line">  fillText (ctx, bg) &#123;</span><br><span class="line">    let row = this.data.p.qd.title</span><br><span class="line">    let rowLength = row.split(&apos;&apos;).length // 字数长度</span><br><span class="line">    let rowArr = [] // 分割后的数组</span><br><span class="line">    let subIndex = 0</span><br><span class="line">    // 默认字体大小24，如果文字需要换行，则修改字体大小为18，并换算需要多少行</span><br><span class="line">    ctx.font = &apos;italic 24px MicrosoftYaHei&apos;</span><br><span class="line">    if (ctx.measureText(row).width &gt; 228) &#123;</span><br><span class="line">      ctx.font = &apos;italic 18px MicrosoftYaHei&apos;</span><br><span class="line">      for (let i = 0; i &lt; rowLength; i++) &#123;</span><br><span class="line">        if (ctx.measureText(row.substring(subIndex, i)).width &gt; 228) &#123;</span><br><span class="line">          console.log(i)</span><br><span class="line">          rowArr.push(row.substring(subIndex, i - 1))</span><br><span class="line">          subIndex = i - 1</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (subIndex !== rowLength) &#123;</span><br><span class="line">        rowArr.push(row.substring(subIndex))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      rowArr.push(row)</span><br><span class="line">    &#125;</span><br><span class="line">    for (let i = 0; i &lt; rowArr.length; i++) &#123;</span><br><span class="line">      if (rowArr[i]) &#123;</span><br><span class="line">        ctx.fillText(rowArr[i], 78, 153 + i * 28)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+        <tag>html</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centOS安装git</title>
+    <url>/centOS%E5%AE%89%E8%A3%85git/</url>
+    <content><![CDATA[<p>centOS如何安装git</p>
+<a id="more"></a>
+
+<p>####一、安装git</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install git</span><br></pre></td></tr></table></figure>
+
+<p>####二、安装依赖库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel</span><br><span class="line">yum install gcc-c++ perl-ExtUtils-MakeMaker</span><br></pre></td></tr></table></figure>
+
+<p>####三、查看git版本号，确定是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git  --version</span><br></pre></td></tr></table></figure>
+
+<p>####四、如需clone项目，需要配置ssh publickey</p>
+<ol>
+<li><p>没有生成过</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>已生成，通常保存在 <code>/root/.ssh/id_rsa.pub</code></p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centOS安装nginx服务器</title>
+    <url>/centOS%E5%AE%89%E8%A3%85nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<p>centOS服务器如何安装nginx服务器及配置https服务</p>
+<a id="more"></a>
+
+<p>####一、先下载 nginx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 先安装所需依赖</span><br><span class="line">yum install -y gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel</span><br><span class="line">2. 使用 wget 命令下载安装文件（可去nginx官网查看最新版本）</span><br><span class="line">wget http://nginx.org/download/nginx-1.17.8.tar.gz</span><br><span class="line">3. 解压文件</span><br><span class="line">tar -zxvf nginx-1.17.8.tar.gz</span><br><span class="line">4. 进入解压目录并执行配置</span><br><span class="line">./configure --prefix=/usr/local/nginx --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-ipv6</span><br><span class="line">5. 安装</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">6. 查找 nginx 安装目录，一般默认在 /usr/local/nginx</span><br><span class="line">whereis nginx</span><br><span class="line">7. 启动 nginx</span><br><span class="line">./nginx</span><br><span class="line">8. 若提示 Nginx: [error] open() ＂/usr/local/Nginx/logs/Nginx.pid&quot; failed（2:No such file or directory）</span><br><span class="line">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centOS安装nodeJS</title>
+    <url>/centOS%E5%AE%89%E8%A3%85nodeJS/</url>
+    <content><![CDATA[<p>centOS如何安装NodeJS</p>
+<a id="more"></a>
+
+<p>####一、下载最新版 nodejs 安装文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 可在 https://nodejs.org/en/download/ 找到最新版本下载地址</span><br><span class="line">2. 在 root 目录下创建 node 文件夹</span><br><span class="line">3. wget https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
+
+<p>####二、解压文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. xz -d node-v12.14.1-linux-x64.tar.xz</span><br><span class="line">2. tar -xf node-v12.14.1-linux-x64.tar</span><br><span class="line">3. cd node-v12.14.1-linux-x64</span><br></pre></td></tr></table></figure>
+
+<p>####三、创建快捷方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. ln -s ~/node/node-v12.14.1-linux-x64/bin/node /usr/bin/node</span><br><span class="line">2. ln -s ~/node/node-v12.14.1-linux-x64/bin/npm /usr/bin/npm</span><br><span class="line">3. 若后面安装hexo时，出现 command not found，也需要使用该方法进行配置</span><br></pre></td></tr></table></figure>
+
+<p>####四、查看是否成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 执行 node -v</span><br><span class="line">2. 执行 npm -v</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>NodeJS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS安装shadowsocks</title>
+    <url>/centOS%E5%AE%89%E8%A3%85shadowsocks/</url>
+    <content><![CDATA[<p>很多IT行业的新人，在工作或者学习中，经常需要查看国外的一些技术网站，但是由于一些限制很多网站都无法访问，本文简要概述如何通过自建ss来访问这些网站，希望大家在学习研究的时候，少走一些弯路，禁止用于非法途径，谢谢配合。。。</p>
+<a id="more"></a>
+
+<p>1.使用 root 用户登录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget --no-check-certificate -O shadowsocks-go.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-go.sh</span><br><span class="line">chmod +x shadowsocks-go.sh</span><br><span class="line">./shadowsocks-go.sh 2&gt;&amp;1 | tee shadowsocks-go.log</span><br></pre></td></tr></table></figure>
+
+<p>2.安装完成后，脚本提示如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Congratulations, Shadowsocks-go server install completed!</span><br><span class="line">Your Server IP        :your_server_ip</span><br><span class="line">Your Server Port      :your_server_port</span><br><span class="line">Your Password         :your_password</span><br><span class="line">Your Encryption Method:your_encryption_method</span><br><span class="line"></span><br><span class="line">Welcome to visit:https://teddysun.com/392.html</span><br><span class="line">Enjoy it!</span><br></pre></td></tr></table></figure>
+
+<p>3.配置文件路径：/etc/shadowsocks/config.json</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;000.000.000.000”,//如果为阿里云专网用户，需要输入私网IP</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">            &quot;8888&quot;: &quot;text&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;timeout&quot;:600</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.如果是阿里云专网用户，需要在阿里云后台添加安全组规则，添加端口号，双入口配置: TCP和UDP</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">启动：/etc/init.d/shadowsocks start</span><br><span class="line">停止：/etc/init.d/shadowsocks stop</span><br><span class="line">重启：/etc/init.d/shadowsocks restart</span><br><span class="line">状态：/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure>
+
+<p>5.卸载方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">./shadowsocks-go.sh uninstall</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>formData遍历</title>
+    <url>/formData%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<p>遍历formData类型数据，查看全部的key=&gt;value</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i of formData.entries())&#123;</span><br><span class="line">    console.log(i[0]+ &apos;, &apos;+ i[1])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webpack将指定文件打包到dist目录或指定目录</title>
+    <url>/copy-file/</url>
+    <content><![CDATA[<p>如何使用webpack将项目中的某个目录或某个文件，打包到指定的目录下（dist目录）？</p>
+<a id="more"></a>
+
+<blockquote>
+<p>因公司需要对网站进行百度收录统计，所以出现了一个需求，需要将百度收录认证文件放到网站根目录。运维放上去后，发现并未生效，经检查后发现，网站根目录指向的是项目打包目录（dist）。所以需要将这个文件放入前端项目代码中，在进行打包的时候，放入dist目录中。</p>
+</blockquote>
+<h3 id="插件-CopyWebpackPlugin"><a href="#插件-CopyWebpackPlugin" class="headerlink" title="插件 CopyWebpackPlugin"></a>插件 <a href="https://www.webpackjs.com/plugins/copy-webpack-plugin/" target="_blank" rel="noopener">CopyWebpackPlugin</a></h3><p>将文件或目录复制到构建目录下。</p>
+<p>文件目录如图：</p>
+<img src="/copy-file/before-copy.png">
+
+<p>想把图片通过 yarn run build-dev 打包时，放入 dist 目录，配置如下：</p>
+<p>打开 webpack 配置文件 webpack-dev-conf.js</p>
+<img src="/copy-file/copy.png">
+
+<p>然后在 Terminal 输入 yarn run build-dev，打包结束后，查看 dist 目录</p>
+<img src="/copy-file/copy-after.png">
+
+]]></content>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>eruda移动端页面调试工具</title>
+    <url>/eruda/</url>
+    <content><![CDATA[<blockquote>
+<p>分享一个适用于移动端页面调试的小工具，方便大家在移动端项目或微信h5页面上线后，能快速定位问题所在。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="工具名称"><a href="#工具名称" class="headerlink" title="工具名称"></a>工具名称</h3><p><a href="https://www.npmjs.com/package/eruda" target="_blank" rel="noopener">eruda.js</a></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>在页面 head 标签内引入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/eruda/1.5.4/eruda.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    eruda.init()</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当我们在控制台输出内容时，点击页面右下角的工具按钮，就可以打开控制台了。</p>
+<img src="/eruda/eruda.png">
+<p>``</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git初始化创建新项目</title>
+    <url>/git%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%9B%E5%BB%BA%E6%96%B0%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<p>记录一下git代码管理工具的日常使用</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;first commit&apos;</span><br><span class="line">git remote add origin ssh...(远程仓库地址)</span><br><span class="line">git push origin master</span><br><span class="line">git checkout -b dev // 创建dev分支</span><br><span class="line">git push --set -u origin dev // 提交dev分支</span><br><span class="line">git merge --no-ff dev // 合并dev分支到当前分支</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>h5与客户端bridge交互方法记录</title>
+    <url>/h5%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AFbridge%E4%BA%A4%E4%BA%92%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>举报项目h5与客户端通过JS Bridge进行交互的方法</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//设备类型判断</span><br><span class="line">function deviceType() &#123;</span><br><span class="line">	var isIDevice = (/iphone|ipod/gi).test(navigator.platform),</span><br><span class="line">		isIDeviceIpad = (/ipad/gi).test(navigator.platform),</span><br><span class="line">		isAndroid = (/Android/gi).test(navigator.userAgent);</span><br><span class="line">	if ((isIDevice || isIDeviceIpad) &amp;&amp; !isAndroid) &#123;</span><br><span class="line">		return &quot;isIos&quot;;</span><br><span class="line">	&#125; else if (isAndroid) &#123;</span><br><span class="line">		return &quot;isAndroid&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*第三方交互库需要，已经区分ios和安卓*/</span><br><span class="line">function setupWebViewJavascriptBridge(callback) &#123;</span><br><span class="line">	if (deviceType() == &quot;isIos&quot;) &#123;</span><br><span class="line">		if (window.WebViewJavascriptBridge) &#123;</span><br><span class="line">			return callback(WebViewJavascriptBridge);</span><br><span class="line">		&#125;</span><br><span class="line">		if (window.WVJBCallbacks) &#123;</span><br><span class="line">			return window.WVJBCallbacks.push(callback);</span><br><span class="line">		&#125;</span><br><span class="line">		window.WVJBCallbacks = [callback];</span><br><span class="line">		var WVJBIframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">		WVJBIframe.style.display = &apos;none&apos;;</span><br><span class="line">		WVJBIframe.src = &apos;wvjbscheme://__BRIDGE_LOADED__&apos;;</span><br><span class="line">		document.documentElement.appendChild(WVJBIframe);</span><br><span class="line">		setTimeout(function () &#123;</span><br><span class="line">			document.documentElement.removeChild(WVJBIframe)</span><br><span class="line">		&#125;, 0)</span><br><span class="line">	&#125; else if (deviceType() == &quot;isAndroid&quot;) &#123;</span><br><span class="line">		if (window.WebViewJavascriptBridge) &#123;</span><br><span class="line">			callback(WebViewJavascriptBridge)</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			document.addEventListener(</span><br><span class="line">				&apos;WebViewJavascriptBridgeReady&apos;</span><br><span class="line">				, function () &#123;</span><br><span class="line">					callback(WebViewJavascriptBridge)</span><br><span class="line">				&#125;,</span><br><span class="line">				false</span><br><span class="line">			);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//初始化函数,callback为使用逻辑函数</span><br><span class="line">function initJsNative(callback) &#123;</span><br><span class="line">	setupWebViewJavascriptBridge(function (bridge) &#123;</span><br><span class="line">		if (deviceType() == &quot;isAndroid&quot;) &#123;</span><br><span class="line">			//若果是安卓必须要注册bridge.init</span><br><span class="line">			bridge.init(function (message, responseCallback) &#123;&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		callback(bridge);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var jsNativeCommon = function (bridge) &#123;</span><br><span class="line">	/*交互的所有JS方法都要放在此处注册，才能调用通过JS调用Native或者让Native调用这里的JS*/</span><br><span class="line"></span><br><span class="line">	//外部浏览器中打开页面</span><br><span class="line">	this.nativeOpenWebView = function nativeOpenWebView(url) &#123;</span><br><span class="line">		console.log(&apos;外部浏览器打开页面&apos;)</span><br><span class="line">		bridge.callHandler(&apos;openNav&apos;, &#123;&quot;url&quot;: url&#125;, function (response) &#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	this.nativeShowMessage = function nativeOpenWebView(msg) &#123;</span><br><span class="line">		console.log(&apos;显示消息&apos;)</span><br><span class="line">		bridge.callHandler(&apos;showMessage&apos;, &#123;&quot;msg&quot;: msg&#125;, function (response) &#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	this.nativeOpenCamera = function nativeOpenWebView(element) &#123;</span><br><span class="line">		console.log(&apos;打开相机&apos;)</span><br><span class="line">		bridge.callHandler(&apos;openCamera&apos;, &#123;element:element&#125;, function (response) &#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	this.nativeSendMessage = function nativeOpenWebView(msg) &#123;</span><br><span class="line">		console.log(&apos;发送消息&apos;)</span><br><span class="line">		bridge.callHandler(&apos;sendMessage&apos;, &#123;msg:msg&#125;, function (response) &#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//js传image的url数组到native</span><br><span class="line">	this.nativeGetImageArr = function(urlAry)&#123;</span><br><span class="line">		console.log(&apos;js传图片url1&apos;)</span><br><span class="line">		bridge.callHandler(&apos;nativeGetImageArr&apos;, &#123;&quot;urlAry&quot;: urlAry&#125;, function (response) &#123;&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//js传image的url数组到native</span><br><span class="line">	this.nativeLoadImage = function(urlAry)&#123;</span><br><span class="line">		console.log(&apos;js传image的url2&apos;)</span><br><span class="line">		bridge.callHandler(&apos;nativeLoadImage&apos;, &#123;&quot;urlAry&quot;: urlAry&#125;, function (response) &#123;&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	this.jsLoginSuccess = function jsLoginSuccess(userInfo) &#123;</span><br><span class="line">		bridge.callHandler(&apos;JSLoginSuccess&apos;, &#123;&quot;userInfo&quot;: userInfo&#125;, function (response) &#123;&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	//调用native图片放大</span><br><span class="line">	this.nativeTapImage = function (url) &#123;</span><br><span class="line">		bridge.callHandler(&apos;nativeTapImage&apos;, &#123;&quot;url&quot;: url&#125;, function (response) &#123;&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	bridge.registerHandler(&apos;nativeSendUserInfo&apos;, function (data,callback) &#123;</span><br><span class="line">		return callback(&apos;发送成功&apos;);</span><br><span class="line">	&#125;);</span><br><span class="line">	bridge.registerHandler(&apos;nativeIsLoginJS&apos;, function (data,callback) &#123;</span><br><span class="line">		 var userInfo = getSessionStorage(&quot;userInfo&quot;);</span><br><span class="line">		 return callback(userInfo);</span><br><span class="line">	&#125;);</span><br><span class="line">	bridge.registerHandler(&apos;navtiveLoginOutJs&apos;, function (data,callback) &#123;</span><br><span class="line">        removeSessionStorage(&quot;userInfo&quot;);</span><br><span class="line">		return callback(&apos;退出成功&apos;);</span><br><span class="line">	&#125;);</span><br><span class="line">	bridge.registerHandler(&apos;receiveImg&apos;, function (data) &#123;</span><br><span class="line">		console.log(&apos;展示图片&apos;);</span><br><span class="line">	&#125;);</span><br><span class="line">    bridge.registerHandler(&apos;nativeSendDeviceInfo&apos;, function (data, callback) &#123;</span><br><span class="line">        window.reportDevideInfo = data</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.组件内调用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; initJsNative, jsNativeCommon &#125; from &apos;Brideg&apos;</span><br><span class="line">function () &#123;</span><br><span class="line">    // 初始化交互js</span><br><span class="line">    let that = this;</span><br><span class="line">    let commonJs = &quot;&quot;;</span><br><span class="line">    function callbackJsNative(bridge)&#123;</span><br><span class="line">        commonJs = new jsNativeCommon(bridge);</span><br><span class="line">        that.commonJs = commonJs;</span><br><span class="line">    &#125;</span><br><span class="line">    initJsNative(function(bridge)&#123;</span><br><span class="line">        callbackJsNative(bridge);</span><br><span class="line">    &#125;);</span><br><span class="line">    // commonJs.nativeOpenCamera(str);</span><br><span class="line">    // delete window.WebViewJavascriptBridge;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.直接调用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var commmonJs = &quot;&quot;;</span><br><span class="line">function callbackJsNative(bridge)&#123;</span><br><span class="line">    commmonJs = new jsNativeCommon(bridge);</span><br><span class="line">&#125;</span><br><span class="line">initJsNative(function(bridge)&#123;</span><br><span class="line">    callbackJsNative(bridge);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ios设备禁止body可拖动</title>
+    <url>/ios%E8%AE%BE%E5%A4%87%E7%A6%81%E6%AD%A2body%E5%8F%AF%E6%8B%96%E5%8A%A8/</url>
+    <content><![CDATA[<p>ios自带safari浏览器下，h5页面滚动到页面边缘后，继续拖动手指会导致页面整体拖动，下面介绍一下怎么阻止这种情况的发生</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var body = $(&apos;body&apos;)</span><br><span class="line">  window.addEventListener(&apos;touchmove&apos;, function (body) &#123;</span><br><span class="line">    let x = body.touches[0].pageX</span><br><span class="line">    let y = body.touches[0].pageY</span><br><span class="line">    if (x &gt; y) &#123;</span><br><span class="line">      body.preventDefault()</span><br><span class="line">&#125;</span><br><span class="line">&#125;, &#123;passive:false&#125;)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js匹配替换字符串</title>
+    <url>/js%E5%8C%B9%E9%85%8D%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str1 = str.replace(/指定字符/g, &quot;需要替换的字符&quot;)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js复制文字到剪切板</title>
+    <url>/js%E5%A4%8D%E5%88%B6%E6%96%87%E5%AD%97%E5%88%B0%E5%89%AA%E5%88%87%E6%9D%BF/</url>
+    <content><![CDATA[<p>js实现复制文本到剪切板</p>
+<a id="more"></a>
+
+<p>1.这里只记录外链引入使用方法，npm方式更为简单，主要是记录这个库的名字</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;//wx.china.cn/wxscene/js/clipboard-1.7.1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div v-for=&quot;(item, index) in textArr&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;doc_top&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;div :id=&quot;&apos;doc_text_&apos; + index&quot; style=&quot;font-size: 0;display: inline-block;opacity: 0;&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/div&gt; &lt;!—防止复制后文字有选中效果，所以从这个隐藏标签中选文字--&gt;</span><br><span class="line">    &lt;div class=&quot;doc_bottom&quot; :class=&quot;&apos;btn&apos; + index&quot; @click=&quot;copy(index)&quot; data-clipboard-action=&quot;copy&quot; :data-clipboard-target=&quot;&apos;#doc_text_&apos; + index&quot;&gt;&lt;/div&gt; &lt;!—按钮，需要动态绑定class，target为上边的文字容器id--&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">copy(index) &#123;</span><br><span class="line">    let str = &apos;btn&apos; + index; // 按钮的class名，通过元素标签动态绑定的</span><br><span class="line">    let clipboard = new Clipboard(&apos;.&apos; + str);</span><br><span class="line">    clipboard.on(&apos;success&apos;, function(e) &#123;</span><br><span class="line">        // 复制成功</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js检测是否含有emoji表情</title>
+    <url>/js%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89emoji%E8%A1%A8%E6%83%85/</url>
+    <content><![CDATA[<p>检查文本中是否含有emoji表情</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function isEmojiCharacter (substring) &#123;  </span><br><span class="line">    for ( var i = 0; i &lt; substring.length; i++) &#123;  </span><br><span class="line">        var hs = substring.charCodeAt(i)</span><br><span class="line">        if (0xd800 &lt;= hs &amp;&amp; hs &lt;= 0xdbff) &#123;  </span><br><span class="line">            if (substring.length &gt; 1) &#123;  </span><br><span class="line">                var ls = substring.charCodeAt(i + 1)</span><br><span class="line">                var uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;  </span><br><span class="line">                if (0x1d000 &lt;= uc &amp;&amp; uc &lt;= 0x1f77f) &#123;  </span><br><span class="line">                    return true</span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; else if (substring.length &gt; 1) &#123;  </span><br><span class="line">            var ls = substring.charCodeAt(i + 1) </span><br><span class="line">            if (ls == 0x20e3) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; else &#123;  </span><br><span class="line">            if (0x2100 &lt;= hs &amp;&amp; hs &lt;= 0x27ff) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125; else if (0x2B05 &lt;= hs &amp;&amp; hs &lt;= 0x2b07) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125; else if (0x2934 &lt;= hs &amp;&amp; hs &lt;= 0x2935) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125; else if (0x3297 &lt;= hs &amp;&amp; hs &lt;= 0x3299) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125; else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030  </span><br><span class="line">                    || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b  </span><br><span class="line">                    || hs == 0x2b50) &#123;  </span><br><span class="line">                return true</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js存取cookie</title>
+    <url>/js%E5%AD%98%E5%8F%96cookie/</url>
+    <content><![CDATA[<p>原生js对获取cookie，存储cookie，删除cookie</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function setCookie (name, value, days) &#123;</span><br><span class="line">  let exp = new Date()</span><br><span class="line">  exp.setTime(exp.getTime() + days * 24 * 60 * 60 * 1000)</span><br><span class="line">  document.cookie = name + &quot;=&quot; + escape (value) + &quot;;expires = &quot; + exp.toGMTString()</span><br><span class="line">&#125;</span><br><span class="line">function getCookie (name) &#123;</span><br><span class="line">  let arr, reg = new RegExp(&quot;(^| )&quot; + name + &quot;=([^;]*)(;|$)&quot;)</span><br><span class="line">  if (arr = document.cookie.match(reg)) &#123;</span><br><span class="line">    return unescape(arr[2])</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return null</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function delCookie (name) &#123;</span><br><span class="line">  let exp = new Date()</span><br><span class="line">  exp.setTime(exp.getTime() - 1)</span><br><span class="line">  let cVal = getCookie(name)</span><br><span class="line">  if (cVal != null) document.cookie = name + &quot;=&quot; + cVal + &quot;;expires=&quot;+exp.toGMTString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js选择上传图片并展示</title>
+    <url>/js%E9%80%89%E6%8B%A9%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%B9%B6%E5%B1%95%E7%A4%BA/</url>
+    <content><![CDATA[<p>前端选择图片并展示选择的图片</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function showImage (input) &#123;</span><br><span class="line">  if (input.files &amp;&amp; input.files[0]) &#123;</span><br><span class="line">    let reader = new FileReader()</span><br><span class="line">    reader.onload = function (e) &#123;</span><br><span class="line">      let imgSource = e.target.result</span><br><span class="line">    &#125;</span><br><span class="line">    reader.readAsDataURL(input.files[0])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js获取地址栏参数</title>
+    <url>/js%E8%8E%B7%E5%8F%96%E5%9C%B0%E5%9D%80%E6%A0%8F%E5%8F%82%E6%95%B0/</url>
+    <content><![CDATA[<p>js获取地址栏参数</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getParams (key) &#123;</span><br><span class="line">    var reg = new RegExp(&quot;(^|&amp;)&quot; + key + &quot;=([^&amp;]*)(&amp;|$)&quot;)</span><br><span class="line">    var result = window.location.search.substr(1).match(reg)</span><br><span class="line">    return result ? decodeURIComponent(result[2]) : null</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function parseURL (url) &#123;</span><br><span class="line">  var a =  document.createElement(&apos;a&apos;)</span><br><span class="line">  a.href = url</span><br><span class="line">  return &#123;</span><br><span class="line">    source: url,</span><br><span class="line">    protocol: a.protocol.replace(&apos;:&apos;, &apos;&apos;),</span><br><span class="line">    host: a.hostname,</span><br><span class="line">    port: a.port,</span><br><span class="line">    query: a.search,</span><br><span class="line">    params: (function()&#123;</span><br><span class="line">      var ret = &#123;&#125;,</span><br><span class="line">        seg = a.search.replace(/^\?/, &apos;&apos;).split(&apos;&amp;&apos;),</span><br><span class="line">        len = seg.length, i = 0, s</span><br><span class="line">      for (; i&lt;len; i++) &#123;</span><br><span class="line">        if (!seg[i]) &#123; continue &#125;</span><br><span class="line">        s = seg[i].split(&apos;=&apos;)</span><br><span class="line">        ret[s[0]] = s[1]</span><br><span class="line">      &#125;</span><br><span class="line">      return ret</span><br><span class="line">    &#125;)(),</span><br><span class="line">    file: (a.pathname.match(/\/([^\/?#]+)$/i) || [, &apos;&apos;])[1],</span><br><span class="line">    hash: a.hash.replace(&apos;#&apos;, &apos;&apos;),</span><br><span class="line">    path: a.pathname.replace(/^([^\/])/, &apos;/$1&apos;),</span><br><span class="line">    relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [, &apos;&apos;])[1],</span><br><span class="line">    segments: a.pathname.replace(/^\//, &apos;&apos;).split(&apos;/&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>moment获取时间段</title>
+    <url>/moment%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E6%AE%B5/</url>
+    <content><![CDATA[<p>使用moment获取一段时间，常用在日期选择器控件内的快捷选项，例如 今天，过去7天，过去1个月，当月 等</p>
+<a id="more"></a>
+
+<p>获取选中时间， 包含当天</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export function getReleaseTime (times) &#123;</span><br><span class="line">  let st</span><br><span class="line">  let et</span><br><span class="line">  if (times.includes(&apos;今日&apos;)) &#123;</span><br><span class="line">    st = moment().format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = st</span><br><span class="line">  &#125; else if (times.includes(&apos;昨日&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(1, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = st</span><br><span class="line">  &#125; else if (times.includes(&apos;本周&apos;)) &#123;</span><br><span class="line">    st = moment().startOf(&apos;week&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;最近7天&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(6, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().subtract(0, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;上周&apos;)) &#123;</span><br><span class="line">    let lastWeek = moment().subtract(1, &apos;week&apos;)</span><br><span class="line">    st = lastWeek.startOf(&apos;week&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = lastWeek.endOf(&apos;week&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;过去14天&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(13, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().subtract(0, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;本月&apos;)) &#123;</span><br><span class="line">    st = moment().startOf(&apos;month&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;最近30天&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(29, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().subtract(0, &apos;days&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;上月&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(1, &apos;month&apos;).startOf(&apos;month&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().subtract(1, &apos;month&apos;).endOf(&apos;month&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;今年&apos;)) &#123;</span><br><span class="line">    st = moment().startOf(&apos;year&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else if (times.includes(&apos;去年&apos;)) &#123;</span><br><span class="line">    st = moment().subtract(1, &apos;years&apos;).startOf(&apos;year&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">    et = moment().subtract(1, &apos;years&apos;).endOf(&apos;year&apos;).format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    let regExp = /\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;/</span><br><span class="line">    if (times[0].length === 10 &amp;&amp; times[1].length === 10 &amp;&amp; regExp.test(times[0]) &amp;&amp; regExp.test(times[1])) &#123;</span><br><span class="line">      st = times[0]</span><br><span class="line">      et = times[1]</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      st = moment().format(&apos;YYYY-MM-DD&apos;)</span><br><span class="line">      et = st</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return [st, et]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pc-h5截屏并下载</title>
+    <url>/pc-h5%E6%88%AA%E5%B1%8F%E5%B9%B6%E4%B8%8B%E8%BD%BD/</url>
+    <content><![CDATA[<p>PC端使用canvas实现截屏并保存图片到本地</p>
+<a id="more"></a>
+
+<p>1.依赖 html2canvas</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a class=&quot;down&quot; href=&quot;&quot; download=&quot;downImg&quot;&gt;下载&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">shots () &#123;</span><br><span class="line">  //创建一个新的canvas</span><br><span class="line">  let canvas2 = document.createElement(&quot;canvas&quot;)</span><br><span class="line">  let _canvas = document.querySelector(&apos;.scrollBar’) // 需要截图的容器</span><br><span class="line">  let w = parseInt(window.getComputedStyle(_canvas).width)</span><br><span class="line">  let h = parseInt(window.getComputedStyle(_canvas).height)</span><br><span class="line">  //将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了</span><br><span class="line">  canvas2.width = w * 2</span><br><span class="line">  canvas2.height = h * 2</span><br><span class="line">  canvas2.style.width = w + &quot;px&quot;</span><br><span class="line">  canvas2.style.height = h + &quot;px&quot;</span><br><span class="line">  //可以按照自己的需求，对context的参数修改,translate指的是偏移量</span><br><span class="line">  //  var context = canvas.getContext(&quot;2d&quot;)</span><br><span class="line">  //  context.translate(0,0)</span><br><span class="line">  let context = canvas2.getContext(&quot;2d&quot;)</span><br><span class="line">  context.scale(2,2)</span><br><span class="line">  html2canvas(document.querySelector(&apos;.scrollBar&apos;),&#123;canvas:canvas2&#125;).then(function(canvas) &#123;</span><br><span class="line">    document.body.appendChild(canvas)</span><br><span class="line">    //canvas转换成url，然后利用a标签的download属性，直接下载，绕过上传服务器再下载，需要点击a标签下载</span><br><span class="line">    document.querySelector(&quot;.down&quot;).setAttribute(&apos;href&apos;,canvas.toDataURL())</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shadowsocks配合ipv6使用总结</title>
+    <url>/shadowsocks%E9%85%8D%E5%90%88ipv6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>ip被*的情况下，通过配置ipv6隧道方式，达到更换ip的效果（也可以通过ipv6地址使用ssh远程连接服务器，亲测）</p>
+<a id="more"></a>
+
+<h4 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h4><p>搬瓦工vps kvm，centOS 8</p>
+<p>####一、申请ipv6隧道地质</p>
+<ol>
+<li>访问 <a href="https://www.tunnelbroker.net，注册并登录，本人使用chrome浏览器进行注册时，总是提示资料错误，注册失败，后来改用safari后，注册成功" target="_blank" rel="noopener">https://www.tunnelbroker.net，注册并登录，本人使用chrome浏览器进行注册时，总是提示资料错误，注册失败，后来改用safari后，注册成功</a></li>
+<li>点击左侧 create regular tunnel，输入你的服务器ip地址，并选择服务器位置（貌似可以随意选择，本人未曾尝试）</li>
+<li>生成后，先点击 Example Configurations，然后选择 Linux net tools 选项（根据操作系统选择，本人操作系统为centOS 8），生成配置代码</li>
+</ol>
+<p>####二、配置服务器</p>
+<ol>
+<li>连接服务器，若ip被*，可使用搬瓦工 kiviVM 管理面板进行登录</li>
+<li>将上面步骤3生成的配置代码，输入并执行</li>
+<li>执行后，验证是否配置成功，输入 ping6 ipv6.google.com，如果可以ping通，说明ipv6配置成功</li>
+</ol>
+<p>####三、设置ipv6开机启动</p>
+<ol>
+<li><p>输入 <code>vi /root/ipv6.sh</code> 进入ipv6配置文件</p>
+</li>
+<li><p>对文件进行编辑</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">   </span><br><span class="line">// 再次将上面的配置代码复制到此处</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给文件可执行权限 <code>chmod +x /root/ipv6.sh</code></p>
+</li>
+<li><p>编辑 <code>rc.local</code> 文件</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加入一行代码 <code>sh /root/ipv6.sh</code></p>
+</li>
+<li><p>结束后，重启系统也可以正常使用了</p>
+</li>
+</ol>
+<p>####四、服务器安装 shadowsocks 客户端</p>
+<ol>
+<li>安装教程参考本人之前的文章即可。</li>
+<li>安装完成后，需要将 shadowsocks 配置文件的 server 属性值改为 ::，并重启 shadowsocks<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;::&quot;,</span><br><span class="line">    &quot;server_port&quot;:17406,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;your password&quot;,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;timeout&quot;:300</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>####五、客户端配置 shadowsocks</p>
+<ol>
+<li>将地址改为 ipv6 的地址即可（后面的 /64 不需要携带）</li>
+</ol>
+<p>####结束。</p>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ssh登录失败解决办法</title>
+    <url>/ssh%E7%99%BB%E5%BD%95%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<p>例如服务器重装系统后，可能会导致 shell 登录远程服务器失败，此时只需要删除 ~/.ssh/known_hosts文件或将文件内对应的记录删除即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 由于本人比较懒，所以选择直接删除文件，无非下次登录的时候多输一次yes。。。</span><br><span class="line">$ rm -rf ~/.ssh/known_hosts</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用sql语句</title>
+    <url>/%E5%B8%B8%E7%94%A8sql%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<p>数据库&amp;数据表增删改查</p>
+<a id="more"></a>
+
+<p>1.进入数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>2.查看数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ show databases;</span><br></pre></td></tr></table></figure>
+
+<p>3.创建数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ create database ****;</span><br></pre></td></tr></table></figure>
+
+<p>4.使用数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ use ****</span><br></pre></td></tr></table></figure>
+
+<p>5.查看数据表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ show tables;</span><br></pre></td></tr></table></figure>
+
+<p>6.创建数据表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ create table **** (**** int not null auto_increment primary key,**** varchar(20),**** varchar(20));</span><br></pre></td></tr></table></figure>
+
+<p>7.查看表结构</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ desc ****</span><br></pre></td></tr></table></figure>
+
+<p>8.写入表数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ insert into **** (****,****) values(‘****’,’****&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>9.删除数据库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ drop database ****;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>linux</tag>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何判断浏览器类型</title>
+    <url>/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>记录几个常见的浏览器类型获取方法</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let isWeiXin = navigator.userAgent.match(/micromessenger/ig) != null</span><br><span class="line">let isAndroid = navigator.userAgent.match(/android|linux.*mobile/ig) != null</span><br><span class="line">let isIos = navigator.userAgent.match(/iphone|ipad|ipod/ig) != null</span><br><span class="line">let isQQ = navigator.userAgent.match(/\sQQ/ig) != null</span><br></pre></td></tr></table></figure>
+
+<p>检测是否为移动端</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export function checkMobile() &#123;</span><br><span class="line">    var a = !1;</span><br><span class="line">    return function(b) &#123;</span><br><span class="line">        (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(b) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(b.substr(0, 4))) &amp;&amp; (a = !0)</span><br><span class="line">    &#125;(navigator.userAgent || navigator.vendor || window.opera), a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信小程序登录以及session_key数据解密</title>
+    <url>/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%BD%95%E4%BB%A5%E5%8F%8Asession-key%E6%95%B0%E6%8D%AE%E8%A7%A3%E5%AF%86/</url>
+    <content><![CDATA[<p>微信小程序登录 &amp; 手机号获取</p>
+<a id="more"></a>
+
+<blockquote>
+<p>记一次小程序开发中，关于code的正确使用。</p>
+<p>最近两天在搞微信小程序的用户登录以及手机号获取，登录没什么问题，但是到手机号获取的时候，发现会有提示code失效的情况，后来仔细看了看小程序的文档，发现在登录态有效情况下，再次使用wx.login会导致登录态刷新，再结合后端的某些逻辑，导致解密失败。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">onLaunch () &#123;</span><br><span class="line">    wx.login(&#123;</span><br><span class="line">        success (res) &#123;</span><br><span class="line">            wx.setStorageSync(&apos;code&apos;, res.code)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">// 授权回调</span><br><span class="line">async bindGetUserInfo (res) &#123;</span><br><span class="line">    let code = await this.getCode()</span><br><span class="line">    /*</span><br><span class="line">    * 将res的内容以及getCode获取到的code，提交到服务器</span><br><span class="line">    * 如果code有效，直接返回code，无效的话，重新生成code</span><br><span class="line">    * 服务器端逻辑，使用code生成session_key后，需要将code和session_key保存，在code有效期内，前端不会再获取新的code，所以需要使用对应的session_key进行数据解密</span><br><span class="line">    * 若重新执行wx.login，可能会刷新授权时的登录态，此时即使重新生成session_key，也不可能将之前的数据解密成功</span><br><span class="line">    */</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">getCode () &#123;</span><br><span class="line">    let code = wx.getStorageSync(&apos;code&apos;)</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        wx.checkSession(&#123;</span><br><span class="line">            success () &#123;</span><br><span class="line">                resolve(code)</span><br><span class="line">            &#125;,</span><br><span class="line">            fail () &#123;</span><br><span class="line">                wx.login(&#123;</span><br><span class="line">                    success (res) &#123;</span><br><span class="line">                        wx.setStorageSync(&apos;code&apos;, res.code)</span><br><span class="line">                        resolve(code)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>推荐栏目rem布局比例</title>
+    <url>/%E6%8E%A8%E8%8D%90%E6%A0%8F%E7%9B%AErem%E5%B8%83%E5%B1%80%E6%AF%94%E4%BE%8B/</url>
+    <content><![CDATA[<p>推荐栏目rem布局，iphone6下貌似是18.75px</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function resize () &#123;</span><br><span class="line">  let fontSize = window.innerWidth &gt;= 640 ? 32 : window.innerWidth / 20</span><br><span class="line">  document.getElementsByTagName(&apos;html&apos;)[0].style.fontSize = fontSize + &apos;px&apos;</span><br><span class="line">  fontSize = null</span><br><span class="line">&#125;</span><br><span class="line">resize()</span><br><span class="line">window.onresize = resize</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>监听滚动条滚动</title>
+    <url>/%E7%9B%91%E5%90%AC%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%BB%9A%E5%8A%A8/</url>
+    <content><![CDATA[<p>js监听滚动条滚动到底事件</p>
+<a id="more"></a>
+
+<p>1.其中有一个值恒为0，所以最好用这种写法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var top = document.body.scrollTop + document.documentElement.scrollTop</span><br></pre></td></tr></table></figure>
+
+<p>2.滚动到底部</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scrollHandel() &#123;</span><br><span class="line">    let body = document.body;</span><br><span class="line">    let sH = document.body.scrollTop + document.documentElement.scrollTop;</span><br><span class="line">    let wH = body.clientHeight;</span><br><span class="line">    let all = sH + wH;</span><br><span class="line">    let dH = body.scrollHeight;</span><br><span class="line">    if(all === dH)&#123;</span><br><span class="line">          console.log(‘到底了&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">document.addEventListener(&apos;scroll&apos;, this.scrollHandel)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">    window.addEventListener(&quot;scroll&quot;, function(event) &#123;</span><br><span class="line">        var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;</span><br><span class="line">        console.log(document.documentElement.scrollHeight + &apos;-----&apos; + document.documentElement.clientHeight + &apos;-----&apos; + scrollTop);</span><br><span class="line">        if((document.documentElement.scrollHeight) === (document.documentElement.clientHeight + scrollTop)) &#123;</span><br><span class="line">            // 到底了</span><br><span class="line">            console.log(&apos;到底了&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>获取操作系统版本号</title>
+    <url>/%E8%8E%B7%E5%8F%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E5%8F%B7/</url>
+    <content><![CDATA[<p>记录一下主流操作系统版本号对应的系统版本</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function osVersion () &#123;</span><br><span class="line">    var str = navigator.userAgent.toLowerCase(), version = null;</span><br><span class="line">    var iOS = str.match(/iphone|ipad|ipod/ig) != null;</span><br><span class="line">    var Android = str.match(/android|linux.*mobile/ig) != null;</span><br><span class="line">    var isMac = str.indexOf(&apos;intel mac os x&apos;);</span><br><span class="line">    var isWindows = str.indexOf(&apos;windows&apos;);</span><br><span class="line">    if (iOS) &#123;</span><br><span class="line">        version = str.match(/cpu iphone os (.*?) like mac os/);</span><br><span class="line">        version = version[1].replace(/_/g,&quot;.&quot;);</span><br><span class="line">        return version;</span><br><span class="line">    &#125; else if (isWindows &gt; -1) &#123;</span><br><span class="line">        if (str.indexOf(&apos;windows nt 10.0&apos;) &gt; -1) &#123;</span><br><span class="line">            version = &apos;10&apos;;</span><br><span class="line">            return version;</span><br><span class="line">        &#125; else if (str.indexOf(&apos;windows nt 6.3&apos;) &gt; -1) &#123;</span><br><span class="line">            version = &apos;8.1&apos;;</span><br><span class="line">            return version;</span><br><span class="line">        &#125; else if (str.indexOf(&apos;windows nt 6.2&apos;) &gt; -1) &#123;</span><br><span class="line">            version = &apos;8&apos;;</span><br><span class="line">            return version;</span><br><span class="line">        &#125; else if (str.indexOf(&apos;windows nt 6.1&apos;) &gt; -1) &#123;</span><br><span class="line">            version = &apos;7&apos;;</span><br><span class="line">            return version;</span><br><span class="line">        &#125; else if (str.indexOf(&apos;windows nt 5.1&apos;) &gt; -1) &#123;</span><br><span class="line">            version = &apos;xp&apos;;</span><br><span class="line">            return version;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (isMac &gt; -1) &#123;</span><br><span class="line">        version = str.match(/intel mac os x (.*?) /);</span><br><span class="line">        version = version[1].replace(/_/g,&quot;.&quot;).replace(&apos;)&apos;, &apos;&apos;);</span><br><span class="line">        return version;</span><br><span class="line">    &#125; else if (Android) &#123;</span><br><span class="line">        var info = str.match(/android [\d._]+/gi);</span><br><span class="line">        version = (info + &quot;&quot;).replace(/[^0-9|_.]/ig, &quot;&quot;).replace(/_/ig, &quot;.&quot;);</span><br><span class="line">        return version;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>页面与iframe通讯</title>
+    <url>/%E9%A1%B5%E9%9D%A2%E4%B8%8Eiframe%E9%80%9A%E8%AE%AF/</url>
+    <content><![CDATA[<p>分享一个父页面与iframe子页面相互通信的代码，之所以这样写，是因为iframe子页面需要父页面通过异步获取数据并传递给iframe</p>
+<a id="more"></a>
+
+<p>1.iframe中引入的js，最好所有的代码都放在listener中，这样可以保证父级页面传输数据的准确性<br>2.父级页面引入iframe后，向iframe发送消息，要放在iframe标签中的onload回调内，保证iframe能拿到消息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;&quot; id=&quot;iframe&quot; name=&quot;iframe&quot; onload=&quot;resize()&quot; allowfullscreen&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.父级页面向iframe发送消息，postMessage第二个参数为域名限制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function sendMessage (userId) &#123;</span><br><span class="line">    var iframe = document.getElementById(&quot;iframe&quot;).contentWindow</span><br><span class="line">    iframe.postMessage(&#123;&#125;, &apos;*&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.页面活iframe监听消息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.addEventListener(&quot;message&quot;, function (msg) &#123;</span><br><span class="line">    console.log(msg)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>5.iframe向父级页面发送消息， 第二个参数为域名限制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.parent.postMessage(&#123;&#125;, &apos;*&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>6.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top.events = &#123;</span><br><span class="line">    on: function (name, func) &#123;</span><br><span class="line">      if (!this.handles) &#123;</span><br><span class="line">        this.handles = &#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line">      this.handles[name] = func</span><br><span class="line">    &#125;,</span><br><span class="line">    emit (name) &#123;</span><br><span class="line">      if (this.handles[name]) &#123;</span><br><span class="line">        // arguments是伪数组所以通过 call 来使用slice</span><br><span class="line">        this.handles[name].apply(null, Array.prototype.slice.call(arguments, 1))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    destory: function (name) &#123;</span><br><span class="line">      if (this.handles &amp;&amp; this.handles[name]) delete this.handles[name]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">top.events.on(&apos;test&apos;, function() &#123;&#125;)</span><br><span class="line"></span><br><span class="line">top.events.emit(&apos;test&apos;, param))</span><br><span class="line"></span><br><span class="line">top.events.destory(&apos;test&apos;)</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>原生js实现insertAfter</title>
+    <url>/%E5%8E%9F%E7%94%9Fjs%E5%AE%9E%E7%8E%B0insertAfter/</url>
+    <content><![CDATA[<p>使用原生js实现将某个节点插入到目标节点后边</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function insertAfter (dom, target) &#123;</span><br><span class="line">    // 获取目标节点的父级标签</span><br><span class="line">    var parent = target.parentNode</span><br><span class="line">    // 如果目标节点正好是最后一个节点，使用appendChild，否则找到它的下一个节点，再使用insertBefore()</span><br><span class="line">    if(parent.lastChild === target) &#123;</span><br><span class="line">        parent.appendChild(dom)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        parent.insertBefore(dom, target.nextSibling)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>javaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx配置文件备份</title>
+    <url>/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%A4%87%E4%BB%BD/</url>
+    <content><![CDATA[<p>nginx配置文件，包含https配置，服务器根目录配置及子目录配置，默认根目录指向博客目录，web则指向原有的服务器根目录</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">user nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">#error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br><span class="line"></span><br><span class="line">pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    #log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">    #                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">    #                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  jiangxin.online;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        rewrite ^(.*)$ https://$host$1 permanent; </span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html/blog/public/;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /web &#123;</span><br><span class="line">            alias   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        #</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    proxy_pass   http://127.0.0.1;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    root           html;</span><br><span class="line">        #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        #    fastcgi_index  index.php;</span><br><span class="line">        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">        #    include        fastcgi_params;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # deny access to .htaccess files, if Apache&apos;s document root</span><br><span class="line">        # concurs with nginx&apos;s one</span><br><span class="line">        #</span><br><span class="line">        #location ~ /\.ht &#123;</span><br><span class="line">        #    deny  all;</span><br><span class="line">        #&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # another virtual host using mix of IP-, name-, and port-based configuration</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       8000;</span><br><span class="line">    #    listen       somename:8080;</span><br><span class="line">    #    server_name  somename  alias  another.alias;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # HTTPS server</span><br><span class="line">    #</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        server_name  jiangxin.online;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      jiangxin.online/pem.pem;</span><br><span class="line">        ssl_certificate_key  jiangxin.online/key.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_cache    shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">        ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html/blog/public/;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /web &#123;</span><br><span class="line">            alias   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+</search>
